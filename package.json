@@ -1,0 +1,10 @@
+{
+  "name": "fuegomitas-tienda",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Tienda Fuegomitas con checkout de Mercado Pago en Netlify Functions",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "mercadopago": "^3.6.1"
+  }
+}

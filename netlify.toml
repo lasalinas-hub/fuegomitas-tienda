@@ -1,0 +1,26 @@
+# ---------------------------------------------------------------------------
+# FUEGOMITAS · configuración de Netlify
+# ---------------------------------------------------------------------------
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  command = "npm install"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Cabeceras de seguridad básicas
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# El HTML siempre fresco; las funciones nunca se cachean
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

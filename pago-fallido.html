@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>El pago no se completó | Fuegomitas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--rojo:#E4002B;--amarillo:#FFA300;--lila:#AC4FC6;--negro:#2C2A29}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Geologica',system-ui,sans-serif;background:var(--negro);color:#fff;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .caja{max-width:560px;width:100%;background:linear-gradient(160deg,#3a2140,#231330);
+    border:2px solid rgba(172,79,198,.45);border-radius:24px;padding:40px 30px;text-align:center}
+  .icono{font-size:4rem;line-height:1}
+  h1{font-size:clamp(1.6rem,5vw,2.3rem);margin-top:14px;line-height:1.15;color:#ff6b6b}
+  p{color:#e4d4e2;font-weight:300;line-height:1.6;margin-top:14px;font-size:1.02rem}
+  b{color:#fff;font-weight:600}
+  .folio{margin-top:20px;background:rgba(0,0,0,.35);border:1px dashed rgba(172,79,198,.6);
+    border-radius:14px;padding:14px;font-size:.92rem;color:#e4d4e2}
+  .folio span{display:block;font-weight:800;color:var(--amarillo);font-size:1.15rem;margin-top:4px;
+    letter-spacing:1px;word-break:break-all}
+  .btns{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  a.btn{display:inline-flex;align-items:center;gap:9px;border-radius:40px;padding:14px 24px;
+    font-weight:800;font-size:1rem;text-decoration:none;transition:transform .12s}
+  a.btn:hover{transform:translateY(-2px)}
+  .btn-wa{background:#25D366;color:#fff}
+  .btn-amar{background:var(--amarillo);color:var(--negro)}
+  .btn-ghost{background:transparent;color:#e4d4e2;border:2px solid rgba(172,79,198,.6)}
+  .pie{margin-top:26px;font-size:.82rem;color:#9a8a98;font-weight:300;line-height:1.6}
+  .pie a{color:var(--amarillo)}
+</style>
+</head>
+<body>
+  <main class="caja">
+    <div class="icono">😕</div>
+    <h1>El pago no<br>se completó</h1>
+    <p>No te preocupes: <b>no se te cobró nada</b> y tu carrito sigue guardado.</p>
+    <p>Suele ser que el banco rechazó el cargo o que faltó un dato de la tarjeta. Puedes intentar con otra tarjeta, o pagar por <b>transferencia, efectivo o contra entrega</b> con 50% de depósito — eso lo cerramos por WhatsApp en dos minutos.</p>
+    <div class="folio" id="folioCaja" style="display:none">
+      Guarda tu número de pedido:
+      <span id="folio">—</span>
+    </div>
+    <div class="btns">
+      <a class="btn btn-amar" href="/#promos">Intentar de nuevo</a>
+      <a class="btn btn-wa" id="waSeguimiento" target="_blank" rel="noopener">Pagar por WhatsApp</a>
+    </div>
+    <p class="pie">
+      <b>FUEGOMITAS</b> · Una marca de ROTAS MX, S.A. de C.V.<br>
+      ¿Dudas con tu pedido? <a href="https://wa.me/522201103347" target="_blank" rel="noopener">WhatsApp +52 220 110 3347</a>
+      · <a href="mailto:contacto@fuegomitas.mx">contacto@fuegomitas.mx</a>
+    </p>
+  </main>
+<script>
+  // Mercado Pago regresa al cliente con los datos del pago en la URL.
+  var q = new URLSearchParams(location.search);
+  var folio = q.get('external_reference');
+  var pagoId = q.get('payment_id') || q.get('collection_id');
+  if (folio) {
+    document.getElementById('folio').textContent = folio;
+    document.getElementById('folioCaja').style.display = 'block';
+  }
+  // Arma el mensaje de WhatsApp con el folio ya puesto.
+  var wa = document.getElementById('waSeguimiento');
+  if (wa) {
+    var txt = '¡Hola Fuegomitas! Tuve un problema con el pago en línea y quiero terminar mi pedido por aquí.';
+    if (folio) txt += ' Mi número de pedido es ' + folio + '.';
+    wa.href = 'https://wa.me/522201103347?text=' + encodeURIComponent(txt);
+  }
+  // El carrito ya se pagó: lo vaciamos para que no vuelva a aparecer.
+  
+  
+</script>
+</body>
+</html>
